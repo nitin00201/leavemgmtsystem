@@ -10,7 +10,7 @@ const PostUser = () => {
     password: '',
     department: '',
     role: '',
-    days: 0,
+    days: 20,
   });
 
   const handleSubmit = async (event) => {
@@ -19,6 +19,8 @@ const PostUser = () => {
         const response = await axios.post("http://localhost:8081/api/users/",formData)
         alert(`user has been sent ${response.data.id}`)
         console.log("post user ",response.data);
+        console.log("post user days ",response.data.days);
+
         navigate("/")
     } catch (error) {
         console.log(error)

@@ -13,7 +13,7 @@ const navigate = useNavigate()
     password: '',
     department: '',
     role: '',
-    days: 0,
+    days: 20,
   });
   useEffect(()=>{
  const fetchUser = async ()=>{

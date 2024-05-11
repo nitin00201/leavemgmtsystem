@@ -37,6 +37,9 @@ const UserList= () => {
       console.log(error)
     }
   }
+
+  const rlb = localStorage.getItem("remainingBalance")
+  console.log("remainimg balance",rlb)
   
 
   return (
@@ -48,6 +51,8 @@ const UserList= () => {
             <th className="px-3 py-2 text-left">Email</th>
             <th className="px-3 py-2 text-left">Department</th>
             <th className="px-3 py-2 text-left">Role</th>
+            <th className="px-3 py-2 text-left">Days Allotted</th>
+
             <th className="px-3 py-2 text-left">Delete</th>
             <th className="px-3 py-2 text-left">Update</th>
 
@@ -61,6 +66,8 @@ const UserList= () => {
               <td className="px-3 py-2">{user.email}</td>
               <td className="px-3 py-2">{user.department ? user.department : 'N/A'}</td>
               <td className="px-3 py-2">{user.role}</td>
+              <td className="px-3 py-2">{user.days}</td>
+
               <td><button className='bg-red-500 border-2 border-white rounded-lg p-1' onClick={()=>handleDelete(user.id)}>delete User</button></td>
               <td><button className='bg-blue-500 border-2 border-white rounded-lg p-1' onClick={()=>handleUpdate(user.id)}>update User</button></td>
             </tr>

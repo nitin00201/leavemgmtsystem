@@ -21,6 +21,9 @@ const Profile = () => {
     fetchData();
   }, [id1]);
 
+  const rlb = localStorage.getItem("remainingBalance")
+  console.log("remainimg balance",rlb)
+
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -34,6 +37,9 @@ const Profile = () => {
       <p className='px-6'>Email : {userData.email}</p>
       <p className='px-6'>Role : {userData.role}</p>    
       <p className='px-6'>Password : {userData.password}</p>
+      <p className='px-6'>Leave Days Remaining : {userData.days}</p>
+
+
 
     </div>
   );
