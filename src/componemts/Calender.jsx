@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 const Calender = ({ leaveId }) => {
   const [data, setData] = useState(null);
 
+  const id1 = localStorage.getItem("id1")
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,11 +32,11 @@ const Calender = ({ leaveId }) => {
       initialView="dayGridMonth"
       events={[
         {
-          title: data.isApproved ? 'Approved' : 'Pending',
+          title: data.status =='approve' ? 'approve' : 'reject',
           start: data.startDate,
           end: data.endDate,
-          borderColor: data.isApproved ? 'green' : 'orange',
-          backgroundColor: data.isApproved ? 'lightgreen' : 'lightyellow',
+          borderColor: data.status=='approve' ? 'green' : 'red',
+          backgroundColor: data.status =='approve' ? 'lightgreen' : 'lightyellow',
           textColor: 'black',
         },
       ]}

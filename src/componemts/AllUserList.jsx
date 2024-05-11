@@ -1,28 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function UserList() {
+const UserList= () => {
   const [users, setUsers] = useState([]);
-  const jwt = localStorage.getItem("jwt");
+  const navigate =useNavigate()
 
   useEffect(() => {
-      const fetchData = async () => {
+    const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8081/api/users/allProfile", {
-          headers: {
-            'Authorization': `Bearer ${jwt}`
-          }
-        });
-
-        setUsers(res.data);
-
+        const response = await axios.get("http://localhost:8081/api/users/");
+        console.log(response.data);
+        localStorage.setItem("jwt", JSON.stringify(response.data)); // Convert data to string
+        setUsers(response.data);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
+    
+    fetchUsers();
+  }, []);
 
-    fetchData();
-  }, [jwt]);
+  const handleUpdate=(employeeId)=>{
+    navigate(`/updateUser/${employeeId}`)
+  }
+  
+
+  const handleDelete = async (employeeId)=>{
+    try {
+      const response = await axios.delete(`http://localhost:8081/api/users/${employeeId}`)
+      console.log(`employee with ${employeeId} has been deleted successfully`)
+     
+      
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
 
   return (
     <div className="container mx-auto">
@@ -33,6 +48,10 @@ function UserList() {
             <th className="px-3 py-2 text-left">Email</th>
             <th className="px-3 py-2 text-left">Department</th>
             <th className="px-3 py-2 text-left">Role</th>
+            <th className="px-3 py-2 text-left">Delete</th>
+            <th className="px-3 py-2 text-left">Update</th>
+
+            
           </tr>
         </thead>
         <tbody>
@@ -42,6 +61,8 @@ function UserList() {
               <td className="px-3 py-2">{user.email}</td>
               <td className="px-3 py-2">{user.department ? user.department : 'N/A'}</td>
               <td className="px-3 py-2">{user.role}</td>
+              <td><button className='bg-red-500 border-2 border-white rounded-lg p-1' onClick={()=>handleDelete(user.id)}>delete User</button></td>
+              <td><button className='bg-blue-500 border-2 border-white rounded-lg p-1' onClick={()=>handleUpdate(user.id)}>update User</button></td>
             </tr>
           ))}
         </tbody>

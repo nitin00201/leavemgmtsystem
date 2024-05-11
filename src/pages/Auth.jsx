@@ -15,15 +15,15 @@ const Auth = () => {
     <div className='box lg:max-w-4xl'>
     <div className={`cover ${isRegister ? "rotate-active":""}`}>
 <div className='front'>
-    <img src='https://images.pexels.com/photos/18208096/pexels-photo-18208096/free-photo-of-lights-over-street-lamp.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'/>
+    <img src='https://i0.wp.com/juntrax.com/blog/wp-content/uploads/2021/01/Employee-Management-System-Juntrax.png?resize=499%2C239&ssl=1'/>
 <div className='text'>
-<span className='text-1'>Success is built upon well organised tasks</span>
+<span className='text-1'>Vacation is good</span>
 <span className='text-2 text-xs'>Lets get Connected</span>
 
 </div>
 </div>
 <div className='back'>
-<img src='https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'/>
+<img src='https://t3.ftcdn.net/jpg/06/10/01/18/360_F_610011817_h3OvYK0yx35KFiEpeHph1GoFHCcDCE0H.jpg'/>
 
 
 </div>

@@ -4,20 +4,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
-import store from '../redux/Store';
-import { register } from '../redux/AuthSlice';
+import axios from 'axios';
 
 
 const Signup = ({togglePannel}) => {
-  const dispatch = useDispatch();
-  const {auth} = useSelector((store)=>store)
 
     const[formData,setFormData]=useState({
         email:"",
         password:"",
         department:"",
-        role:""
+        role:"",
+        days: 0,
+
     })
     const handleChange=(e)=>{
         const{name,value}=e.target
@@ -25,14 +23,17 @@ const Signup = ({togglePannel}) => {
             [name]:value
      } )
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit= async (e)=>{
         e.preventDefault();
-        dispatch(register(formData))
+       const res = await axios.post("http://localhost:8081/api/users/",formData)
+       console.log("in sign up page",res.data)
+
+       localStorage.setItem("id1",res.data.id)
         console.log(formData);
     }
   return (
     <div>
-    <h1 className='text-lg font-bold text-center pb-8'>Register</h1>
+    <h1 className='text-lg font-bold text-center pb-8 translate-y-[90%]'>Register</h1>
 <form className='space-y-3' onSubmit={handleSubmit}>
 
 <TextField fullWidth label="Email" name='email' type='email' value={formData.email} onChange={handleChange} placeholder='enter email'/>
@@ -49,6 +50,8 @@ const Signup = ({togglePannel}) => {
         >
           <MenuItem value={`IT`}>IT</MenuItem>
           <MenuItem value={"FINANCE"}>FINANCE</MenuItem>
+          <MenuItem value={"HR"}>HR</MenuItem>
+
         </Select>
       </FormControl>
 
@@ -69,15 +72,24 @@ const Signup = ({togglePannel}) => {
 
                   <Button
                     fullWidth
-                    className="customButton"
-                    sx={{ padding: '.9rem' }}
-                    type='submit'
+                    className=""
+                    sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: '1px solid #000',
+          borderRadius: '5px',
+          width: '6rem',
+          height: '3rem',
+          backgroundColor: '#000',
+        }}                 
+           type='submit'
                   >
                     Register
                   </Button>
                 </div>
 </form>    
-<div className='mt-5 flex items-center gap-2 py-5 justify-center'>
+<div className='mt-5 flex items-center gap-2 py-5 justify-center translate-y-[-45%]'>
     <span>Already have an acount?</span>
     <Button onClick={togglePannel}>sign in</Button>
 </div>
