@@ -5,6 +5,7 @@ import axios from 'axios';
 function LeaveForm() {
   const id1 = localStorage.getItem("id1")
   console.log(id1)
+  const da = localStorage.getItem("userType1")
 
 
 
@@ -13,14 +14,30 @@ function LeaveForm() {
     endDate: '',
     leaveCause: '',
     status:"PENDING",
-    uid: parseInt(id1)
+    uid: parseInt(id1),
+    departmentName:da,
+    leaveType:"",
   });
 
   const [errors, setErrors] = useState({});
 
+  const bal = localStorage.getItem("remainingBalance")
+
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
+
+    const date1 = new Date(formData.startDate);
+    const date2 = new Date(formData.endDate);
+    const differenceInMilliseconds = date2 - date1;
+    const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+
+    if (differenceInDays < bal ) {
+      
+      try {
         const response = await axios.post('http://localhost:8081/api/leave/',formData)
         alert(`leave has been sent.\n Your id is : ${response.data.id}`)
         console.log("leave user ",response.data.uid);
@@ -28,6 +45,13 @@ function LeaveForm() {
         console.log(error)
     }
     console.log(formData);
+
+    } else {
+      alert("No holiday available")
+      
+    }
+
+ 
 
   };
 
@@ -66,6 +90,21 @@ function LeaveForm() {
         />
         {errors.endDate && <p>{errors.endDate}</p>}
 
+        <label htmlFor="leaveType">Reason for Leave:</label>
+<select
+  className='p-1 w-[58%] border-2 rounded-md h-10'
+  id="leaveType"
+  name="leaveType"
+  value={formData.leaveType}
+  onChange={handleChange}
+>
+  <option value="">Select a reason</option>
+  <option value="sick">Sick</option>
+  <option value="vacation">Vacation</option>
+  <option value="personal">Personal</option>
+</select>
+
+
         <label htmlFor="leaveCause">Reason for Leave:</label>
         <textarea
         className='p-1'
@@ -76,7 +115,7 @@ function LeaveForm() {
         />
         {errors.reason && <p>{errors.reason}</p>}
 
-        <button type="submit" className='bg-blue-400 p-1'>Submit Leave Request</button>
+        <button type="submit" className='bg-blue-400 p-1 my-5'>Submit Leave Request</button>
       </form>
     </>
   );

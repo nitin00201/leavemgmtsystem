@@ -33,6 +33,8 @@ const [leaveRequest,SetLeaveRequest] = useState([])
           <th className="border border-gray-300 px-4 py-2">Start Date</th>
           <th className="border border-gray-300 px-4 py-2">End Date</th>
           <th className="border border-gray-300 px-4 py-2">Leave Cause</th>
+          <th className="border border-gray-300 px-4 py-2">Leave Type</th>
+
           <th className="border border-gray-300 px-4 py-2">Status</th>
 
         </tr>
@@ -45,6 +47,7 @@ const [leaveRequest,SetLeaveRequest] = useState([])
             <td className="border border-gray-300 px-4 py-2">{moment(leave.startDate).format('YYYY-MM-DD')}</td>
             <td className="border border-gray-300 px-4 py-2">{moment(leave.endDate).format('YYYY-MM-DD')}</td>
             <td className="border border-gray-300 px-4 py-2">{leave.leaveCause}</td>
+            <td className="border border-gray-300 px-4 py-2">{leave.leaveType}</td>
             <td className="border border-gray-300 px-4 py-2">{leave.status}</td>
 
           </tr>

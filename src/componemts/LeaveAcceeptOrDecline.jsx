@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const LeaveAcceptOrDecline = () => {
   const [leaveHistory, setLeaveHistory] = useState([]);
   const navigate = useNavigate();
+  const da = localStorage.getItem("userType1")
 
   useEffect(() => {
     const fetchLeaveHistory = async () => {
       try {
         const response = await axios.get('http://localhost:8081/api/leave/');
-        const authorizable = response.data.filter(el => el.status === "PENDING");
+        const authorizable = response.data.filter(el => el.status === "PENDING" && el.departmentName === da.toString());
         setLeaveHistory(authorizable);
         console.log("in leave admin view", response.data);
+        console.log("fetch using dept",authorizable);
       } catch (error) {
         console.error("Error fetching leave history:", error);
       }

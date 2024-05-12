@@ -24,7 +24,7 @@ const Signup = ({togglePannel}) => {
      } )
     }
     const handleSubmit= async (e)=>{
-        e.preventDefault();
+        // e.preventDefault();
        const res = await axios.post("http://localhost:8081/api/users/",formData)
        console.log("in sign up page",res.data)
 

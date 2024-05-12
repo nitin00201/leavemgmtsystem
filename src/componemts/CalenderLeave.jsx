@@ -29,8 +29,11 @@ useEffect(()=>{
       const res = await axios.get("http://localhost:8081/api/leave/")
       const data = res.data
       const leave1 = data.filter(el => el.uid == id1 && el.status !== "PENDING");
+      const sickLeave = leave1.filter(el => el.leaveType === 'sick')
+      console.log(sickLeave);
       console.log(leave1)
       const ids = leave1.map(obj => obj.id);
+      const ids1 =ids.reverse();
 
       setLeavebyId(ids)
     }
@@ -52,7 +55,11 @@ useEffect(()=>{
   </div>
       {
         leaveById.map((id) => (
+          <div className='my-5'>
+          <div className='text-xl font-mono text-center underline'>Leave id : <strong>{id}</strong></div>
           <Calender leaveId={id} key={id} />
+          
+          </div>
         ))
       }
     </div>

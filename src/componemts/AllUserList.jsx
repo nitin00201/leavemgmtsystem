@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const UserList= () => {
   const [users, setUsers] = useState([]);
   const navigate =useNavigate()
+  const role = localStorage.getItem("userRole")
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -53,8 +55,8 @@ const UserList= () => {
             <th className="px-3 py-2 text-left">Role</th>
             <th className="px-3 py-2 text-left">Days Allotted</th>
 
-            <th className="px-3 py-2 text-left">Delete</th>
-            <th className="px-3 py-2 text-left">Update</th>
+            <th className={`${role == "manager" ? "px-3 py-2 text-left":"hidden"}`}>Delete</th>
+            <th className={`${role == "manager" ? "px-3 py-2 text-left":"hidden"}`}>Update</th>
 
             
           </tr>
@@ -68,8 +70,8 @@ const UserList= () => {
               <td className="px-3 py-2">{user.role}</td>
               <td className="px-3 py-2">{user.days}</td>
 
-              <td><button className='bg-red-500 border-2 border-white rounded-lg p-1' onClick={()=>handleDelete(user.id)}>delete User</button></td>
-              <td><button className='bg-blue-500 border-2 border-white rounded-lg p-1' onClick={()=>handleUpdate(user.id)}>update User</button></td>
+              <td><button className={`${role == "manager" ? 'bg-red-500 border-2 border-white rounded-lg p-1':"hidden"}`} onClick={()=>handleDelete(user.id)}>delete User</button></td>
+              <td><button className={`${role == "manager" ? 'bg-blue-500 border-2 border-white rounded-lg p-1':"hidden"}`} onClick={()=>handleUpdate(user.id)}>update User</button></td>
             </tr>
           ))}
         </tbody>

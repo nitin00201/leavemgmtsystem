@@ -10,7 +10,11 @@ const Profile = () => {
       if (id1) {
         try {
           const res = await axios.get(`http://localhost:8081/api/users/${id1}`);
+          localStorage.setItem("userType1",res.data.department)
+          localStorage.setItem("userRole",res.data.role)
+
           setUserData(res.data);
+          
           console.log("data in navbar", res.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -23,6 +27,9 @@ const Profile = () => {
 
   const rlb = localStorage.getItem("remainingBalance")
   console.log("remainimg balance",rlb)
+  const da = localStorage.getItem("userType1")
+  console.log(da);
+
 
   if (!userData) {
     return <div>Loading...</div>;

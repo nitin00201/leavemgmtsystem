@@ -10,7 +10,7 @@ const PostUser = () => {
     password: '',
     department: '',
     role: '',
-    days: 20,
+    days: 50,
   });
 
   const handleSubmit = async (event) => {

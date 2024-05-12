@@ -5,18 +5,18 @@ import axios from 'axios';
 const navItems = [
   { name: "Home", path: "/", roles: ["manager",'employee'] },
   { name: "Calendar", path: "/calendar", roles: ["employee"] },
-  { name: "Leave Management", path: "/leaveMgmt", roles: ["manager","employee"] },
+  { name: "Leave Management", path: "/leaveMgmt", roles: ["employee"] },
   { name: "User List ", path: "/userList", roles: ["employee", "manager"] },
   { name: "Profile ", path: "/profile", roles: ["employee", "manager"] },
   { name: "Leave Authorize ", path: "/leaveAuthorize", roles: "manager" },
   { name: "User Creation", path: "/postUser", roles: "manager" },
+  { name: "Fill Leave form ", path: "/leaveForm", roles: ["employee"] },
   { name: "Approved Leave ", path: "/approved", roles: "employee" },
   { name: "Rejected Leave ", path: "/rejected", roles: "employee" }
 
 
 ];
-const navItem1 =[  { name: "Fill Leave form ", path: "/leaveForm", roles: ["employee"] },
-]
+
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -59,11 +59,7 @@ const Navbar = () => {
             <a href={item.path}>{item.name}</a>
           </li>
         ))}
-        {getVisibleItems(navItem1, userRole).map(item => (
-          <li className={rbl <= 0 ? "hidden":""} key={item.path}>
-            <a href={item.path}>{item.name}</a>
-          </li>
-        ))}
+      
       </ul>
       <div className='flex gap-2'>
       {id1 && <button className="border-2 p-1 bg-red-500 " onClick={handleLogout}>Logout</button>}
