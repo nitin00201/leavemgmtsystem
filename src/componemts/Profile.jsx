@@ -44,7 +44,7 @@ const Profile = () => {
       <p className='px-6'>Email : {userData.email}</p>
       <p className='px-6'>Role : {userData.role}</p>    
       <p className='px-6'>Password : {userData.password}</p>
-      <p className='px-6'>Leave Days Remaining : {userData.days}</p>
+      <p className='px-6'>Leaves alloted : {userData.days}</p>
 
 
 

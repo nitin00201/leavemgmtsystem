@@ -10,7 +10,7 @@ const Footer = () => {
     <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
-          <a href="#" target="_blank" class="flex items-center">
+          <a href="/" target="_blank" class="flex items-center">
             <img src={logo} class="mr-4 h-10" alt="Leave Management System Logo" />
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Leave Management System</span>
           </a>
@@ -20,10 +20,10 @@ const Footer = () => {
             <h3 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h3>
             <ul>
               <li class="mb-4">
-                <a href="https://example.com" target="_blank" class="text-gray-600 hover:underline dark:text-gray-400">Leave Policy</a>
+                <a href="/leavepol" class="text-gray-600 hover:underline dark:text-gray-400">Leave Policy</a>
               </li>
               <li>
-                <a href="https://example.com" target="_blank" rel="nofollow" class="text-gray-600 hover:underline dark:text-gray-400">Employee Handbook</a>
+                <a href="/handbook"  rel="nofollow" class="text-gray-600 hover:underline dark:text-gray-400">Employee Handbook</a>
               </li>
             </ul>
           </div>
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
           <div>
             <h3 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Social Media</h3>
-            <div className='flex gap-3 text-3xl'>
+            <div className='flex gap-3 text-3xl cursor-pointer'>
             <FaInstagram />
             <CiFacebook />
             <FaXTwitter />

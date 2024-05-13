@@ -16,6 +16,8 @@ import AccedpteLeave from './requests/AccedpteLeave';
 import RejectedLeave from './requests/RejectedLeave';
 import Calender from './componemts/Calender';
 import CalenderLeave from './componemts/CalenderLeave';
+import LeavePol from './pages/LeavePol';
+import EmpHandbook from './pages/EmpHandbook';
 
 
 
@@ -69,6 +71,14 @@ const App = () => {
     {
       path:"/calendar",
       element:<CalenderLeave/>
+    },
+    {
+      path:"/leavepol",
+      element:<LeavePol/>
+    },
+    {
+      path:"/handbook",
+      element:<EmpHandbook/>
     }
 
   ])

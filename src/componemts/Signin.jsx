@@ -16,7 +16,7 @@ const Signin = ({togglePannel}) => {
      } )
     }
     const handleSubmit= async(e)=>{
-        // e.preventDefault();
+        e.preventDefault();
    try {
     const res = await axios.post("http://localhost:8081/api/users/signin",formData)
     console.log("sign in successfully")

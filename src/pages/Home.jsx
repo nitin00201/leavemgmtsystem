@@ -5,10 +5,10 @@ const Home = () => {
   return (
     <div className=''>
 <img src={img2}/>
-<div className='text-6xl font-bold translate-y-[-1150%] translate-x-[25%] text-white'>
+<div className='text-6xl font-bold w-8/12 translate-y-[-1150%] mx-auto translate-x-[10%] text-white'>
   Employee Leave Management
 </div>
-  <div  className='text-6xl font-extrabold translate-y-[-1150%] translate-x-[45%] text-white'>System</div>
+  <div  className='text-6xl font-extrabold w-2/12 translate-y-[-1150%] mx-auto translate-x-[15%] text-white'>System</div>
       
     </div>
   )
