@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { User, Briefcase, Mail, Key, Calendar } from 'lucide-react';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -10,12 +11,9 @@ const Profile = () => {
       if (id1) {
         try {
           const res = await axios.get(`http://localhost:8081/api/users/${id1}`);
-          localStorage.setItem("userType1",res.data.department)
-          localStorage.setItem("userRole",res.data.role)
-
+          localStorage.setItem("userType1", res.data.department);
+          localStorage.setItem("userRole", res.data.role);
           setUserData(res.data);
-          
-          console.log("data in navbar", res.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -25,29 +23,75 @@ const Profile = () => {
     fetchData();
   }, [id1]);
 
-  const rlb = localStorage.getItem("remainingBalance")
-  console.log("remainimg balance",rlb)
-  const da = localStorage.getItem("userType1")
-  console.log(da);
-
-
   if (!userData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
   }
 
+  const ProfileItem = ({ icon: Icon, label, value, color }) => (
+    <div className={`flex items-center p-4 ${color} rounded-lg shadow-md`}>
+      <Icon className="w-6 h-6 mr-4 text-white" />
+      <div>
+        <p className="text-sm font-medium text-white">{label}</p>
+        <p className="text-lg font-semibold text-white">{value}</p>
+      </div>
+    </div>
+  );
+
   return (
-    <div className='border-2 w-3/12 flex flex-col gap-5  mx-auto m-16 p-2 rounded-xl text-xl shadow-xl'>
-    <h1 className='bg-blue-400 text-center font-extrabold text-3xl rounded-t-xl'>User Profile</h1>
-      <p className='px-6'>Name : {userData.email.split("@")[0]}</p>
-      <p className='px-6'>Id : {userData.id}</p>
-      <p className='px-6'>Department : {userData.department}</p>
-      <p className='px-6'>Email : {userData.email}</p>
-      <p className='px-6'>Role : {userData.role}</p>    
-      <p className='px-6'>Password : {userData.password}</p>
-      <p className='px-6'>Leaves alloted : {userData.days}</p>
-
-
-
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6">
+          <h1 className="text-3xl font-bold text-white text-center">User Profile</h1>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+          <ProfileItem 
+            icon={User} 
+            label="Name" 
+            value={userData.email.split("@")[0]} 
+            color="bg-blue-500"
+          />
+          <ProfileItem 
+            icon={User} 
+            label="ID" 
+            value={userData.id} 
+            color="bg-green-500"
+          />
+          <ProfileItem 
+            icon={Briefcase} 
+            label="Department" 
+            value={userData.department} 
+            color="bg-yellow-500"
+          />
+          <ProfileItem 
+            icon={Mail} 
+            label="Email" 
+            value={userData.email} 
+            color="bg-red-500"
+          />
+          <ProfileItem 
+            icon={Briefcase} 
+            label="Role" 
+            value={userData.role} 
+            color="bg-indigo-500"
+          />
+          <ProfileItem 
+            icon={Key} 
+            label="Password" 
+            value={userData.password}
+            color="bg-pink-500"
+          />
+          <ProfileItem 
+            icon={Calendar} 
+            label="Leaves Allotted" 
+            value={userData.days} 
+            color="bg-purple-500"
+          />
+        </div>
+      </div>
     </div>
   );
 };

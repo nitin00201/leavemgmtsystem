@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import './LeaveForm.css';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { Calendar, Clock, FileText, Send } from 'lucide-react';
 
 function LeaveForm() {
-  const id1 = localStorage.getItem("id1")
-  console.log(id1)
-  const da = localStorage.getItem("userType1")
-
-
+  const id1 = localStorage.getItem("id1");
+  const da = localStorage.getItem("userType1");
+  const bal = localStorage.getItem("remainingBalance");
 
   const [formData, setFormData] = useState({
     startDate: '',
     endDate: '',
     leaveCause: '',
-    status:"PENDING",
+    status: "PENDING",
     uid: parseInt(id1),
-    departmentName:da,
-    leaveType:"",
+    departmentName: da,
+    leaveType: "",
   });
 
   const [errors, setErrors] = useState({});
-
-  const bal = localStorage.getItem("remainingBalance")
-
-
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,25 +27,16 @@ function LeaveForm() {
     const differenceInMilliseconds = date2 - date1;
     const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
 
-
-    if (differenceInDays < bal ) {
-      
+    if (differenceInDays < bal) {
       try {
-        const response = await axios.post('http://localhost:8081/api/leave/',formData)
-        alert(`leave has been sent.\n Your id is : ${response.data.id}`)
-        console.log("leave user ",response.data.uid);
-    } catch (error) {
-        console.log(error)
-    }
-    console.log(formData);
-
+        const response = await axios.post('http://localhost:8081/api/leave/', formData);
+        alert(`Leave request has been sent.\nYour ID is: ${response.data.id}`);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      alert("No holiday available")
-      
+      alert("No holiday available");
     }
-
- 
-
   };
 
   const handleChange = (event) => {
@@ -62,62 +46,93 @@ function LeaveForm() {
     });
     setErrors({
       ...errors,
-      [event.target.name]: '', // Clear the error when the field is changed
+      [event.target.name]: '',
     });
   };
 
   return (
-    <>
-      <form className='border-2 w-[35%] mx-auto rounded-lg flex flex-col gap-2 shadow-lg shadow-gray-700 p-1 mb-14' onSubmit={handleSubmit}>
-      <h1 className='text-center font-bold text-3xl bg-blue-500 w-full rounded-t-xl h-10 '>Leave Form</h1>
-        <label htmlFor="startDate">Start Date:</label>
-        <input
-          type="date"
-          id="startDate"
-          name="startDate"
-          value={formData.startDate}
-          onChange={handleChange}
-        />
-        {errors.startDate && <p>{errors.startDate}</p>}
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div className="px-4 py-5 sm:p-6">
+          <h1 className="text-center font-bold text-3xl text-gray-800 mb-8">Leave Request Form</h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 flex items-center">
+                <Calendar className="w-5 h-5 mr-2 text-blue-500" />
+                Start Date
+              </label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
 
-        <label htmlFor="endDate">End Date:</label>
-        <input
-          type="date"
-          id="endDate"
-          name="endDate"
-          value={formData.endDate}
-          onChange={handleChange}
-        />
-        {errors.endDate && <p>{errors.endDate}</p>}
+            <div>
+              <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 flex items-center">
+                <Calendar className="w-5 h-5 mr-2 text-blue-500" />
+                End Date
+              </label>
+              <input
+                type="date"
+                id="endDate"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
 
-        <label htmlFor="leaveType">Reason for Leave:</label>
-<select
-  className='p-1 w-[58%] border-2 rounded-md h-10'
-  id="leaveType"
-  name="leaveType"
-  value={formData.leaveType}
-  onChange={handleChange}
->
-  <option value="">Select a reason</option>
-  <option value="sick">Sick</option>
-  <option value="vacation">Vacation</option>
-  <option value="personal">Personal</option>
-</select>
+            <div>
+              <label htmlFor="leaveType" className="block text-sm font-medium text-gray-700 flex items-center">
+                <Clock className="w-5 h-5 mr-2 text-blue-500" />
+                Leave Type
+              </label>
+              <select
+                id="leaveType"
+                name="leaveType"
+                value={formData.leaveType}
+                onChange={handleChange}
+                className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              >
+                <option value="">Select a reason</option>
+                <option value="sick">Sick</option>
+                <option value="vacation">Vacation</option>
+                <option value="personal">Personal</option>
+              </select>
+            </div>
 
+            <div>
+              <label htmlFor="leaveCause" className="block text-sm font-medium text-gray-700 flex items-center">
+                <FileText className="w-5 h-5 mr-2 text-blue-500" />
+                Reason for Leave
+              </label>
+              <textarea
+                id="leaveCause"
+                name="leaveCause"
+                value={formData.leaveCause}
+                onChange={handleChange}
+                rows="4"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
 
-        <label htmlFor="leaveCause">Reason for Leave:</label>
-        <textarea
-        className='p-1'
-          id="leaveCause"
-          name="leaveCause"
-          value={formData.leaveCause}
-          onChange={handleChange}
-        />
-        {errors.reason && <p>{errors.reason}</p>}
-
-        <button type="submit" className='bg-blue-400 p-1 my-5'>Submit Leave Request</button>
-      </form>
-    </>
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+              >
+                <Send className="w-5 h-5 mr-2" />
+                Submit Leave Request
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

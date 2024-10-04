@@ -22,6 +22,7 @@ import EmpHandbook from './pages/EmpHandbook';
 
 
 const App = () => {
+  const [id,setId]= useState('')
 
   const router = createBrowserRouter([
     {
@@ -83,12 +84,16 @@ const App = () => {
 
   ])
 
-
-  const id1 = localStorage.getItem("id1")
- console.log( "in app.jsx page id1",id1)
+  useEffect(() => {
+    const id1 = localStorage.getItem("id1");
+    if (id1) {
+      setId(id1);
+    }
+  }, []);
+ console.log( "in app.jsx page id1",id)
 
   return (<>
-    {id1 ? (
+    {id !='' ? (
       <>
         <Navbar />
         <RouterProvider router={router} />
